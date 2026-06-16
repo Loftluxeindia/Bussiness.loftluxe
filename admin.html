@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loft Luxe — Admin Dashboard</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --rose: #C9506E; --rose-dark: #8B2D45; --rose-light: #FBEAF0;
+  --gold: #B8924A; --gold-light: #F7EFE1;
+  --text: #1a1109; --muted: #6b6560; --border: #e8dce0;
+  --green: #3B9E5A; --green-light: #EAF5EE;
+  --orange: #D4732A; --orange-light: #FEF0E6;
+  --blue: #2A6ED4; --blue-light: #E6EFFE;
+  --red: #D42A2A; --red-light: #FEE6E6;
+  --bg: #f8f4f5;
+}
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; min-height: 100vh; }
+
+/* LOGIN */
+.login-wrap {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #1a0d12 0%, #2d1520 100%);
+}
+.login-box {
+  background: #fff; border-radius: 20px; padding: 2.5rem 2rem;
+  width: 100%; max-width: 380px; box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+}
+.login-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 700; color: var(--rose-dark);
+  text-align: center; margin-bottom: 0.25rem;
+}
+.login-logo span { color: var(--gold); font-style: italic; }
+.login-sub { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 2rem; letter-spacing: 0.5px; }
+.login-box label { font-size: 12px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 5px; }
+.login-box input {
+  width: 100%; border: 1px solid var(--border); border-radius: 8px;
+  padding: 11px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
+  outline: none; margin-bottom: 14px; color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.login-box input:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(201,80,110,0.1); }
+.login-btn {
+  width: 100%; background: var(--rose); color: #fff; border: none;
+  padding: 13px; border-radius: 8px; font-size: 15px; font-weight: 700;
+  cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s;
+}
+.login-btn:hover { background: var(--rose-dark); }
+.login-error { font-size: 12px; color: var(--red); text-align: center; margin-top: 10px; display: none; }
+
+/* LAYOUT */
+.admin-wrap { display: none; }
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+  background: #1a0d12; display: flex; flex-direction: column;
+  z-index: 100; padding: 0;
+}
+.sidebar-brand {
+  padding: 1.5rem 1.25rem 1rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+}
+.sidebar-brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 700; color: #d4a97a; font-style: italic;
+}
+.sidebar-brand-sub { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+.sidebar-nav { padding: 1rem 0.75rem; flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 8px; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5);
+  transition: all 0.2s; text-decoration: none;
+}
+.sidebar-link:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
+.sidebar-link.active { background: var(--rose); color: #fff; }
+.sidebar-link i { font-size: 17px; flex-shrink: 0; }
+.sidebar-footer {
+  padding: 1rem 0.75rem;
+  border-top: 0.5px solid rgba(255,255,255,0.08);
+}
+.logout-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 12px; border-radius: 8px; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.4);
+  background: none; border: none; font-family: 'Inter', sans-serif;
+  width: 100%; transition: all 0.2s;
+}
+.logout-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+
+.main { margin-left: 220px; min-height: 100vh; display: flex; flex-direction: column; }
+.topbar {
+  background: #fff; border-bottom: 0.5px solid var(--border);
+  padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.topbar-badge {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--rose-light); color: var(--rose-dark);
+  font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px;
+}
+.topbar-badge i { font-size: 15px; }
+
+.content { padding: 2rem; flex: 1; }
+
+/* STAT CARDS */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 2rem; }
+.stat-card {
+  background: #fff; border: 0.5px solid var(--border); border-radius: 14px;
+  padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 14px;
+}
+.stat-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+}
+.stat-num { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* FILTER BAR */
+.filter-bar {
+  background: #fff; border: 0.5px solid var(--border); border-radius: 12px;
+  padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.filter-bar input, .filter-bar select {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; font-size: 13px; font-family: 'Inter', sans-serif;
+  color: var(--text); outline: none; background: #fff;
+  transition: border-color 0.2s;
+}
+.filter-bar input:focus, .filter-bar select:focus { border-color: var(--rose); }
+.filter-bar input { flex: 1; min-width: 180px; }
+.filter-bar .filter-count {
+  font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; margin-left: auto;
+}
+
+/* TABLE */
+.table-wrap { background: #fff; border: 0.5px solid var(--border); border-radius: 14px; overflow: hidden; }
+.table-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.5rem; border-bottom: 0.5px solid var(--border);
+}
+.table-head-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.export-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--gold-light); color: var(--gold); border: 0.5px solid #e0c890;
+  padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s;
+}
+.export-btn:hover { background: var(--gold); color: #fff; }
+
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+  color: var(--muted); padding: 10px 16px; text-align: left;
+  background: #fdf8f9; border-bottom: 0.5px solid var(--border); white-space: nowrap;
+}
+tbody tr { border-bottom: 0.5px solid #f5eef0; transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #fdf8f9; }
+tbody td { padding: 12px 16px; font-size: 13px; color: var(--text); vertical-align: middle; }
+
+.status-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+  white-space: nowrap;
+}
+.status-new      { background: var(--blue-light);   color: var(--blue); }
+.status-confirmed{ background: var(--green-light);  color: var(--green); }
+.status-completed{ background: #f0f0f0;              color: #555; }
+.status-cancelled{ background: var(--red-light);    color: var(--red); }
+
+.action-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
+  cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: all 0.15s;
+  margin-right: 4px;
+}
+.action-btn.view    { background: var(--blue-light);  color: var(--blue); }
+.action-btn.confirm { background: var(--green-light); color: var(--green); }
+.action-btn.cancel  { background: var(--red-light);   color: var(--red); }
+.action-btn:hover   { filter: brightness(0.92); }
+
+.empty-state {
+  text-align: center; padding: 4rem 2rem; color: var(--muted);
+}
+.empty-state i { font-size: 48px; display: block; margin-bottom: 1rem; color: var(--border); }
+.empty-state p { font-size: 14px; }
+
+/* MODAL */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45); z-index: 500;
+  align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: #fff; border-radius: 16px; width: 100%; max-width: 520px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2); overflow: hidden;
+  animation: modalIn 0.2s ease;
+}
+@keyframes modalIn { from { opacity:0; transform: scale(0.96) translateY(8px); } to { opacity:1; transform: none; } }
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 1.5rem; border-bottom: 0.5px solid var(--border);
+}
+.modal-header h3 { font-size: 16px; font-weight: 700; color: var(--text); }
+.modal-close {
+  width: 32px; height: 32px; border-radius: 8px; border: none;
+  background: #f5eef0; color: var(--muted); font-size: 18px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+}
+.modal-close:hover { background: var(--rose-light); color: var(--rose); }
+.modal-body { padding: 1.5rem; }
+.detail-row {
+  display: flex; gap: 1rem; padding: 9px 0;
+  border-bottom: 0.5px solid #f5eef0; font-size: 13px;
+}
+.detail-row:last-child { border: none; }
+.detail-row .dk { color: var(--muted); font-weight: 600; width: 120px; flex-shrink: 0; }
+.detail-row .dv { color: var(--text); flex: 1; word-break: break-word; }
+.modal-footer {
+  padding: 1rem 1.5rem; border-top: 0.5px solid var(--border);
+  display: flex; gap: 8px; justify-content: flex-end;
+}
+.modal-btn {
+  padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: all 0.2s;
+}
+.modal-btn.confirm { background: var(--green); color: #fff; }
+.modal-btn.confirm:hover { background: #2e8048; }
+.modal-btn.cancel  { background: var(--red-light); color: var(--red); }
+.modal-btn.cancel:hover  { background: var(--red); color: #fff; }
+.modal-btn.close   { background: #f0ece8; color: var(--muted); }
+.modal-btn.close:hover { background: #e8e0dc; }
+
+/* STATUS CHANGE SELECT */
+.status-select {
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 5px 10px; font-size: 12px; font-family: 'Inter', sans-serif;
+  color: var(--text); background: #fff; cursor: pointer; outline: none;
+}
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+  background: #1a0d12; color: #fff; padding: 12px 20px; border-radius: 10px;
+  font-size: 13px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  display: none; align-items: center; gap: 8px;
+  animation: slideUp 0.25s ease;
+}
+.toast.show { display: flex; }
+@keyframes slideUp { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: none; } }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .sidebar { width: 60px; }
+  .sidebar-brand, .sidebar-brand-sub, .sidebar-link span, .logout-btn span { display: none; }
+  .sidebar-link { justify-content: center; padding: 12px; }
+  .sidebar-link i { font-size: 20px; }
+  .main { margin-left: 60px; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .content { padding: 1.25rem; }
+}
+@media (max-width: 600px) {
+  .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .topbar { padding: 0 1rem; }
+  .content { padding: 1rem; }
+  thead { display: none; }
+  tbody tr { display: block; padding: 0.75rem; margin-bottom: 10px; border: 0.5px solid var(--border); border-radius: 10px; }
+  tbody td { display: block; padding: 4px 0; font-size: 12px; border: none; }
+  tbody td::before { content: attr(data-label); font-weight: 700; color: var(--muted); margin-right: 6px; font-size: 11px; text-transform: uppercase; }
+  .table-wrap { border: none; background: transparent; box-shadow: none; }
+  table { background: transparent; }
+  tbody tr:hover { background: #fff; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap">
+  <div class="login-box">
+    <div class="login-logo">Loft <span>Luxe</span></div>
+    <div class="login-sub">Admin Dashboard · Owner Access</div>
+    <label>Username</label>
+    <input type="text" id="login-user" placeholder="admin" value="admin">
+    <label>Password</label>
+    <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-error" id="login-error">Incorrect credentials. Try admin / loftluxe123</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-wrap" id="admin-wrap">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-name">Loft Luxe</div>
+      <div class="sidebar-brand-sub">Admin Panel</div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="sidebar-link active"><i class="ti ti-layout-dashboard"></i><span>Dashboard</span></div>
+      <div class="sidebar-link" onclick="filterStatus('')"><i class="ti ti-calendar-event"></i><span>All Bookings</span></div>
+      <div class="sidebar-link" onclick="filterStatus('New')"><i class="ti ti-bell"></i><span>New</span></div>
+      <div class="sidebar-link" onclick="filterStatus('Confirmed')"><i class="ti ti-circle-check"></i><span>Confirmed</span></div>
+      <div class="sidebar-link" onclick="filterStatus('Completed')"><i class="ti ti-check"></i><span>Completed</span></div>
+    </div>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="doLogout()"><i class="ti ti-logout"></i><span>Logout</span></button>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">All Bookings</div>
+      <div class="topbar-right">
+        <div class="topbar-badge" id="new-badge"><i class="ti ti-bell"></i><span id="new-count">0</span> new</div>
+        <div style="font-size:13px;color:var(--muted)" id="topbar-date"></div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#EAF5EE;color:#3B9E5A"><i class="ti ti-calendar-check"></i></div>
+          <div><div class="stat-num" id="stat-total">0</div><div class="stat-label">Total Bookings</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:var(--blue-light);color:var(--blue)"><i class="ti ti-bell"></i></div>
+          <div><div class="stat-num" id="stat-new">0</div><div class="stat-label">New / Pending</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:var(--rose-light);color:var(--rose)"><i class="ti ti-currency-rupee"></i></div>
+          <div><div class="stat-num" id="stat-revenue">₹0</div><div class="stat-label">Est. Revenue</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:var(--gold-light);color:var(--gold)"><i class="ti ti-sparkles"></i></div>
+          <div><div class="stat-num" id="stat-top">—</div><div class="stat-label">Top Service</div></div>
+        </div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <i class="ti ti-search" style="color:var(--muted);font-size:16px;flex-shrink:0"></i>
+        <input type="text" id="search-input" placeholder="Search by name, phone, city, service…" oninput="renderTable()">
+        <select id="status-filter" onchange="renderTable()">
+          <option value="">All Statuses</option>
+          <option value="New">New</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+        <select id="service-filter" onchange="renderTable()">
+          <option value="">All Services</option>
+        </select>
+        <span class="filter-count" id="filter-count">0 bookings</span>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <div class="table-head">
+          <div class="table-head-title">Booking Records</div>
+          <button class="export-btn" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Customer</th>
+              <th>Service</th>
+              <th>Date & Time</th>
+              <th>City</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="booking-tbody"></tbody>
+        </table>
+        <div class="empty-state" id="empty-state" style="display:none">
+          <i class="ti ti-calendar-off"></i>
+          <p>No bookings yet. When customers book on the website, they'll appear here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Booking Details</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="ti ti-check"></i><span id="toast-msg"></span></div>
+
+<script>
+// ══ CREDENTIALS ══
+const CREDS = { user: 'admin', pass: 'loftluxe123' };
+
+// ══ LOGIN ══
+function doLogin() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value.trim();
+  if (u === CREDS.user && p === CREDS.pass) {
+    document.getElementById('login-wrap').style.display = 'none';
+    document.getElementById('admin-wrap').style.display = 'block';
+    init();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+function doLogout() {
+  document.getElementById('admin-wrap').style.display = 'none';
+  document.getElementById('login-wrap').style.display = 'flex';
+  document.getElementById('login-pass').value = '';
+}
+
+// ══ SAMPLE + STORAGE ══
+const SAMPLE_BOOKINGS = [
+  { id:1, name:'Priya Sharma',    phone:'+91 98765 43210', city:'Mumbai',    pincode:'400001', address:'Flat 4B, Lotus Tower, Andheri West',     service:'Bathtub Massage',    addons:'Aromatherapy', date:'2025-07-10', time:'10:00 AM – 11:00 AM', amount:3199, notes:'Please use lavender oil.', status:'New',       bookedAt:'2025-07-08 09:14' },
+  { id:2, name:'Riya Patel',      phone:'+91 91234 56789', city:'Ahmedabad', pincode:'380015', address:'301, Sunrise Apt, Satellite',             service:'Swedish Massage',    addons:'None',         date:'2025-07-11', time:'4:00 PM – 5:00 PM',  amount:1499, notes:'',                      status:'Confirmed',  bookedAt:'2025-07-08 11:30' },
+  { id:3, name:'Ananya Singh',    phone:'+91 87654 32109', city:'Pune',      pincode:'411001', address:'22, Koregaon Park, Lane 5',               service:'Aroma Oil Massage',  addons:'Hot Stones',   date:'2025-07-09', time:'2:00 PM – 3:00 PM',  amount:2099, notes:'Avoid neck area.',       status:'Completed',  bookedAt:'2025-07-07 16:45' },
+  { id:4, name:'Meera Joshi',     phone:'+91 99887 76655', city:'Delhi',     pincode:'110001', address:'B-12, Vasant Vihar',                      service:'Deep Tissue Massage',addons:'None',         date:'2025-07-12', time:'11:00 AM – 12:00 PM',amount:1799, notes:'Lower back focus.',      status:'New',        bookedAt:'2025-07-08 13:00' },
+  { id:5, name:'Kavita Reddy',    phone:'+91 76543 21098', city:'Bangalore', pincode:'560001', address:'4th Floor, Prestige Tower, MG Road',      service:'Full Body + Scrub',  addons:'Herbal Compress',date:'2025-07-13',time:'9:00 AM – 10:00 AM', amount:2849, notes:'',                      status:'Confirmed',  bookedAt:'2025-07-08 14:22' },
+  { id:6, name:'Sneha Verma',     phone:'+91 88899 00011', city:'Jaipur',    pincode:'302001', address:'15, Civil Lines, Near Pink City Mall',    service:'Foot Massage',       addons:'None',         date:'2025-07-14', time:'5:00 PM – 6:00 PM',  amount:899,  notes:'',                      status:'New',        bookedAt:'2025-07-08 17:05' },
+  { id:7, name:'Divya Nair',      phone:'+91 70011 22334', city:'Kochi',     pincode:'682001', address:'Marine Drive, Flat 8A',                   service:'Hair Oil Massage',   addons:'None',         date:'2025-07-09', time:'3:00 PM – 4:00 PM',  amount:799,  notes:'Scalp sensitivity.',    status:'Cancelled',  bookedAt:'2025-07-07 10:10' },
+];
+
+function getBookings() {
+  try {
+    const stored = localStorage.getItem('loftluxe_bookings');
+    return stored ? JSON.parse(stored) : SAMPLE_BOOKINGS;
+  } catch { return SAMPLE_BOOKINGS; }
+}
+function saveBookings(data) {
+  try { localStorage.setItem('loftluxe_bookings', JSON.stringify(data)); } catch {}
+}
+
+let bookings = [];
+let activeFilter = '';
+
+// ══ INIT ══
+function init() {
+  bookings = getBookings();
+  document.getElementById('topbar-date').textContent = new Date().toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+
+  // Populate service filter
+  const services = [...new Set(bookings.map(b => b.service))].sort();
+  const sf = document.getElementById('service-filter');
+  services.forEach(s => { const o = document.createElement('option'); o.value = o.textContent = s; sf.appendChild(o); });
+
+  updateStats();
+  renderTable();
+}
+
+// ══ STATS ══
+function updateStats() {
+  const total   = bookings.length;
+  const newB    = bookings.filter(b => b.status === 'New').length;
+  const revenue = bookings.filter(b => b.status !== 'Cancelled').reduce((s, b) => s + b.amount, 0);
+  const svcCount = {};
+  bookings.forEach(b => { if (b.status !== 'Cancelled') svcCount[b.service] = (svcCount[b.service]||0)+1; });
+  const top = Object.entries(svcCount).sort((a,b) => b[1]-a[1])[0];
+
+  document.getElementById('stat-total').textContent   = total;
+  document.getElementById('stat-new').textContent     = newB;
+  document.getElementById('stat-revenue').textContent = '₹' + revenue.toLocaleString('en-IN');
+  document.getElementById('stat-top').textContent     = top ? top[0].split(' ')[0] : '—';
+  document.getElementById('new-count').textContent    = newB;
+}
+
+// ══ RENDER TABLE ══
+function renderTable() {
+  const q   = document.getElementById('search-input').value.toLowerCase();
+  const st  = document.getElementById('status-filter').value;
+  const sv  = document.getElementById('service-filter').value;
+
+  let filtered = bookings.filter(b => {
+    const matchQ  = !q || [b.name, b.phone, b.city, b.service, b.address].some(v => v.toLowerCase().includes(q));
+    const matchSt = !st || b.status === st;
+    const matchSv = !sv || b.service === sv;
+    return matchQ && matchSt && matchSv;
+  });
+
+  document.getElementById('filter-count').textContent = filtered.length + ' booking' + (filtered.length !== 1 ? 's' : '');
+
+  const tbody = document.getElementById('booking-tbody');
+  const empty = document.getElementById('empty-state');
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filtered.map((b, i) => `
+    <tr>
+      <td data-label="No.">${b.id}</td>
+      <td data-label="Customer">
+        <div style="font-weight:600">${b.name}</div>
+        <div style="font-size:12px;color:var(--muted)">${b.phone}</div>
+      </td>
+      <td data-label="Service">
+        <div style="font-weight:500">${b.service}</div>
+        ${b.addons && b.addons !== 'None' ? `<div style="font-size:11px;color:var(--gold)">+ ${b.addons}</div>` : ''}
+      </td>
+      <td data-label="Date & Time">
+        <div style="font-weight:500">${formatDate(b.date)}</div>
+        <div style="font-size:12px;color:var(--muted)">${b.time}</div>
+      </td>
+      <td data-label="City">${b.city}</td>
+      <td data-label="Amount" style="font-weight:700;color:var(--rose)">₹${b.amount.toLocaleString('en-IN')}</td>
+      <td data-label="Status">
+        <select class="status-select" onchange="changeStatus(${b.id}, this.value)">
+          ${['New','Confirmed','Completed','Cancelled'].map(s =>
+            `<option value="${s}" ${b.status===s?'selected':''}>${s}</option>`
+          ).join('')}
+        </select>
+      </td>
+      <td data-label="Actions">
+        <button class="action-btn view" onclick="viewBooking(${b.id})"><i class="ti ti-eye"></i> View</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+// ══ STATUS CHANGE ══
+function changeStatus(id, newStatus) {
+  const b = bookings.find(x => x.id === id);
+  if (!b) return;
+  b.status = newStatus;
+  saveBookings(bookings);
+  updateStats();
+  showToast('Status updated to ' + newStatus);
+}
+
+// ══ FILTER ══
+function filterStatus(s) {
+  document.getElementById('status-filter').value = s;
+  renderTable();
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+}
+
+// ══ VIEW BOOKING ══
+function viewBooking(id) {
+  const b = bookings.find(x => x.id === id);
+  if (!b) return;
+
+  const statusColors = { New:'status-new', Confirmed:'status-confirmed', Completed:'status-completed', Cancelled:'status-cancelled' };
+
+  document.getElementById('modal-title').textContent = 'Booking #' + b.id + ' — ' + b.name;
+  document.getElementById('modal-body').innerHTML = `
+    <div class="detail-row"><div class="dk">Status</div><div class="dv"><span class="status-badge ${statusColors[b.status]||''}">${b.status}</span></div></div>
+    <div class="detail-row"><div class="dk">Customer</div><div class="dv"><strong>${b.name}</strong><br><a href="tel:${b.phone}" style="color:var(--rose)">${b.phone}</a></div></div>
+    <div class="detail-row"><div class="dk">Service</div><div class="dv">${b.service}</div></div>
+    <div class="detail-row"><div class="dk">Add-ons</div><div class="dv">${b.addons || 'None'}</div></div>
+    <div class="detail-row"><div class="dk">Total Amount</div><div class="dv" style="font-weight:700;color:var(--rose)">₹${b.amount.toLocaleString('en-IN')}</div></div>
+    <div class="detail-row"><div class="dk">Date</div><div class="dv">${formatDate(b.date)}</div></div>
+    <div class="detail-row"><div class="dk">Time Slot</div><div class="dv">${b.time}</div></div>
+    <div class="detail-row"><div class="dk">City</div><div class="dv">${b.city} — ${b.pincode}</div></div>
+    <div class="detail-row"><div class="dk">Address</div><div class="dv">${b.address}</div></div>
+    ${b.notes ? `<div class="detail-row"><div class="dk">Notes</div><div class="dv" style="font-style:italic">"${b.notes}"</div></div>` : ''}
+    <div class="detail-row"><div class="dk">Booked At</div><div class="dv" style="color:var(--muted)">${b.bookedAt}</div></div>
+  `;
+
+  const footer = document.getElementById('modal-footer');
+  footer.innerHTML = '';
+  if (b.status === 'New') {
+    const cb = document.createElement('button');
+    cb.className = 'modal-btn confirm'; cb.innerHTML = '<i class="ti ti-circle-check"></i> Confirm';
+    cb.onclick = () => { changeStatus(b.id,'Confirmed'); renderTable(); closeModal(); };
+    footer.appendChild(cb);
+
+    const xb = document.createElement('button');
+    xb.className = 'modal-btn cancel'; xb.innerHTML = '<i class="ti ti-x"></i> Cancel';
+    xb.onclick = () => { changeStatus(b.id,'Cancelled'); renderTable(); closeModal(); };
+    footer.appendChild(xb);
+  }
+  if (b.status === 'Confirmed') {
+    const db = document.createElement('button');
+    db.className = 'modal-btn confirm'; db.innerHTML = '<i class="ti ti-check"></i> Mark Completed';
+    db.onclick = () => { changeStatus(b.id,'Completed'); renderTable(); closeModal(); };
+    footer.appendChild(db);
+  }
+  const cl = document.createElement('button');
+  cl.className = 'modal-btn close'; cl.textContent = 'Close';
+  cl.onclick = closeModal;
+  footer.appendChild(cl);
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+
+// ══ EXPORT CSV ══
+function exportCSV() {
+  const headers = ['ID','Name','Phone','Service','Add-ons','Date','Time','City','Pincode','Address','Amount','Status','Booked At','Notes'];
+  const rows = bookings.map(b => [
+    b.id, b.name, b.phone, b.service, b.addons, b.date, b.time,
+    b.city, b.pincode, '"' + b.address + '"', b.amount, b.status, b.bookedAt, '"' + (b.notes||'') + '"'
+  ]);
+  const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'loftluxe_bookings_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  showToast('CSV exported!');
+}
+
+// ══ TOAST ══
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ══ KEYBOARD ══
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

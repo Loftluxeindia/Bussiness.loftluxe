@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loft Luxe At Home — Women's Home Spa</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --rose:       #C9506E;
+  --rose-dark:  #8B2D45;
+  --rose-light: #FBEAF0;
+  --gold:       #B8924A;
+  --gold-dark:  #8a6b30;
+  --gold-light: #F7EFE1;
+  --text:       #1a1109;
+  --muted:      #6b6560;
+  --border:     #e8dce0;
+  --white:      #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: #fdf8f9; color: var(--text); font-size: 15px; line-height: 1.65; }
+
+/* ── NAV ── */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; background: rgba(255,255,255,0.97);
+  border-bottom: 0.5px solid var(--border);
+  position: sticky; top: 0; z-index: 300; height: 64px;
+  backdrop-filter: blur(12px);
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700;
+  color: var(--rose-dark); letter-spacing: 0.3px; white-space: nowrap; line-height: 1; flex-shrink: 0;
+}
+.nav-brand span { color: var(--gold); font-style: italic; }
+.nav-brand small {
+  display: block; font-family: 'Inter', sans-serif;
+  font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-top: 2px;
+}
+.nav-links { display: flex; gap: 2px; }
+.nav-links a {
+  font-size: 13px; color: var(--muted); text-decoration: none; cursor: pointer;
+  padding: 7px 12px; border-radius: 20px; transition: all 0.2s; font-weight: 500; white-space: nowrap;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--rose); background: var(--rose-light); }
+.nav-links a i { margin-right: 4px; vertical-align: -1px; }
+
+/* Hamburger */
+.nav-hamburger {
+  display: none; flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer;
+  padding: 6px; border-radius: 8px; transition: background 0.2s; flex-shrink: 0;
+}
+.nav-hamburger:hover { background: var(--rose-light); }
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px; background: var(--rose-dark);
+  border-radius: 2px; transition: all 0.25s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer */
+.mobile-nav {
+  display: none; position: fixed; top: 64px; left: 0; right: 0;
+  background: rgba(255,255,255,0.98); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border); z-index: 299;
+  padding: 0.75rem 1rem 1.25rem; flex-direction: column; gap: 4px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--muted);
+  font-weight: 500; text-decoration: none; cursor: pointer;
+  padding: 11px 14px; border-radius: 10px; transition: all 0.2s;
+}
+.mobile-nav a:hover, .mobile-nav a.active { color: var(--rose); background: var(--rose-light); }
+.mobile-nav a i { font-size: 18px; }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── HERO ── */
+.hero { position: relative; min-height: 580px; display: flex; align-items: center; overflow: hidden; }
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1600&auto=format&fit=crop&q=85');
+  background-size: cover; background-position: center 30%; filter: brightness(0.32);
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(139,45,69,0.55) 0%, rgba(0,0,0,0.2) 100%);
+}
+.hero-content { position: relative; z-index: 2; padding: 4rem 3rem; max-width: 720px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: #d4a97a; margin-bottom: 1.5rem; font-weight: 600;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: #d4a97a; }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif; font-size: 62px; font-weight: 700;
+  line-height: 1.05; color: #fff; margin-bottom: 1.25rem; letter-spacing: -0.5px;
+}
+.hero h1 em { color: #d4a97a; font-style: italic; display: block; }
+.hero-desc { font-size: 16px; color: rgba(255,255,255,0.78); margin-bottom: 2.5rem; line-height: 1.8; max-width: 480px; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.btn-gold {
+  background: var(--gold); color: #fff; border: none; padding: 14px 28px; border-radius: 6px;
+  font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: 0.4px;
+  transition: background 0.2s; font-family: 'Inter', sans-serif;
+}
+.btn-gold:hover { background: var(--gold-dark); }
+.btn-ghost {
+  background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.55);
+  padding: 14px 28px; border-radius: 6px; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+}
+.btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+.hero-stats {
+  position: absolute; right: 2.5rem; bottom: 2.5rem; z-index: 2;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.1); border: 0.5px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px); border-radius: 10px; padding: 12px 18px; text-align: center;
+}
+.hero-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: #d4a97a; line-height: 1; }
+.hero-stat-label { font-size: 10px; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+/* ── TRUST STRIP ── */
+.trust-strip { background: #fff; border-bottom: 0.5px solid var(--border); display: flex; justify-content: center; flex-wrap: wrap; }
+.trust-item {
+  display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted);
+  font-weight: 500; padding: 13px 20px; border-right: 0.5px solid var(--border);
+}
+.trust-item:last-child { border-right: none; }
+.trust-item i { font-size: 18px; color: var(--rose); flex-shrink: 0; }
+
+/* ── PHOTO STRIP ── */
+.photo-strip { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; height: 260px; overflow: hidden; }
+.photo-strip .ph { overflow: hidden; }
+.photo-strip .ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.photo-strip .ph:hover img { transform: scale(1.06); }
+
+/* ── SECTION ── */
+.section { padding: 4rem 2rem; max-width: 880px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.6rem; font-weight: 700; display: flex; align-items: center; gap: 8px;
+}
+.section-eyebrow::before { content: ''; display: block; width: 20px; height: 1.5px; background: var(--gold); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 0.5rem; }
+.section-title em { color: var(--rose); font-style: italic; }
+.section-sub { font-size: 15px; color: var(--muted); margin-bottom: 2.5rem; max-width: 540px; line-height: 1.7; }
+
+/* ── ABOUT DARK ── */
+.about-strip { background: #1a0d12; padding: 5rem 2rem; }
+.about-strip-inner { max-width: 880px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.about-strip .tag {
+  display: inline-block; background: rgba(201,80,110,0.2); color: #f09ab8;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 20px; font-weight: 700; margin-bottom: 1.25rem;
+}
+.about-strip h2 { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 1.25rem; }
+.about-strip h2 em { color: #d4a97a; font-style: italic; }
+.about-strip p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.85; margin-bottom: 1rem; }
+.about-strip .highlight-text {
+  font-family: 'Cormorant Garamond', serif; font-size: 19px; color: #d4a97a; font-style: italic;
+  line-height: 1.5; border-left: 2px solid var(--gold); padding-left: 1.25rem; margin: 1.5rem 0;
+}
+.about-strip .badges { display: flex; flex-direction: column; gap: 10px; margin-top: 1.5rem; }
+.about-badge { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500; }
+.about-badge i { font-size: 17px; color: var(--rose); flex-shrink: 0; }
+.about-imgs { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 240px 180px; gap: 10px; }
+.about-imgs img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+.about-imgs img:first-child { grid-row: 1 / 3; height: 100%; }
+
+/* ── WHY GRID ──
+   3-col desktop: right border on every 3rd, no bottom border on last row (items 4-6)
+   BUG FIX: use :nth-child(3n) and :nth-child(n+4) for last-row detection */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.why-item {
+  padding: 2.25rem 1.75rem;
+  border-right: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+}
+.why-item:nth-child(3n)       { border-right: none; }          /* 3rd in each row */
+.why-item:nth-child(n+4)      { border-bottom: none; }          /* bottom row (4,5,6) */
+.why-num { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 700; color: var(--rose-light); line-height: 1; margin-bottom: 0.5rem; }
+.why-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.why-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* ── SERVICE CARDS ── */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 2rem; }
+
+/* BUG FIX: booking-grid gets its own responsive column rule via class */
+.booking-grid-2col { grid-template-columns: 1fr 1fr; }
+
+.srv-card {
+  background: var(--white); border: 0.5px solid var(--border); border-radius: 14px;
+  padding: 1.25rem; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+}
+.srv-card:hover { border-color: var(--rose); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(201,80,110,0.13); }
+.srv-card.selected { border: 2px solid var(--rose); background: var(--rose-light); }
+.srv-card.featured { border: 1.5px solid var(--gold); background: #fffcf7; }
+.srv-card.featured:hover { border-color: var(--gold-dark); }
+
+.srv-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; }
+.srv-icon { width: 44px; height: 44px; background: var(--rose-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--rose); flex-shrink: 0; }
+.srv-card.featured .srv-icon { background: var(--gold-light); color: var(--gold); }
+.srv-badge { font-size: 10px; font-weight: 700; background: var(--gold-light); color: var(--gold); padding: 3px 9px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.4px; }
+.srv-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 5px; line-height: 1.3; }
+.srv-desc { font-size: 12px; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 0.85rem; }
+.srv-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 0.5px solid var(--border); margin-top: auto; }
+.srv-price { font-size: 16px; font-weight: 700; color: var(--rose); }
+.srv-card.featured .srv-price { color: var(--gold); }
+.srv-dur { font-size: 11px; color: #bbb; }
+.srv-book-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; color: var(--rose); background: var(--rose-light);
+  border: none; border-radius: 20px; padding: 5px 12px; cursor: pointer;
+  transition: all 0.2s; font-family: 'Inter', sans-serif;
+}
+.srv-book-btn:hover { background: var(--rose); color: #fff; }
+.srv-card.featured .srv-book-btn { color: var(--gold); background: var(--gold-light); }
+.srv-card.featured .srv-book-btn:hover { background: var(--gold); color: #fff; }
+
+/* ── ADD-ONS ── */
+.addons { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 1.75rem; }
+.addon-chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+  border: 0.5px solid var(--border); border-radius: 20px; font-size: 13px; cursor: pointer;
+  color: var(--muted); background: #fff; transition: all 0.2s; font-weight: 500;
+}
+.addon-chip:hover { border-color: var(--rose); color: var(--rose-dark); }
+.addon-chip.active { border-color: var(--rose); background: var(--rose-light); color: var(--rose-dark); font-weight: 700; }
+
+/* ── FORM ── */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-group label { font-size: 13px; color: var(--muted); font-weight: 600; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 14px;
+  background: #fff; color: var(--text); font-family: 'Inter', sans-serif; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s; -webkit-appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(201,80,110,0.1); }
+.form-group textarea { resize: vertical; min-height: 90px; }
+
+/* ── BOOKING LAYOUT ── */
+.booking-layout { display: grid; grid-template-columns: 1fr 360px; gap: 2.5rem; align-items: start; }
+.booking-sticky { position: sticky; top: 80px; }
+.summary-box { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+.summary-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--text);
+  margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 0.5px solid var(--border);
+}
+/* BUG FIX: summary-row border */
+.summary-row {
+  display: flex; justify-content: space-between;
+  font-size: 13px; padding: 7px 0;
+  border-bottom: 0.5px solid #f5eef0; color: #555;
+}
+.summary-row:last-of-type { border-bottom: none; }
+.summary-total {
+  display: flex; justify-content: space-between; font-size: 16px; font-weight: 700;
+  color: var(--rose); padding: 14px 0 0; border-top: 1px solid var(--border); margin-top: 8px;
+}
+.confirm-btn {
+  width: 100%; background: var(--rose); color: #fff; border: none; padding: 15px;
+  border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer;
+  transition: background 0.2s; margin-top: 1.25rem; font-family: 'Inter', sans-serif;
+}
+.confirm-btn:hover { background: var(--rose-dark); }
+
+/* ── SELECTED SERVICE BANNER ── */
+.selected-service-banner {
+  display: none; align-items: center; gap: 14px;
+  background: var(--rose-light); border: 1.5px solid var(--rose);
+  border-radius: 14px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+  animation: fadeSlideIn 0.3s ease;
+}
+.selected-service-banner.visible { display: flex; }
+@keyframes fadeSlideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+.ssb-icon { width: 44px; height: 44px; background: var(--rose); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; flex-shrink: 0; }
+.ssb-info { flex: 1; min-width: 0; }
+.ssb-name { font-size: 14px; font-weight: 700; color: var(--rose-dark); line-height: 1.2; }
+.ssb-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.ssb-price { font-size: 17px; font-weight: 700; color: var(--rose); white-space: nowrap; }
+.ssb-change { font-size: 12px; color: var(--muted); cursor: pointer; text-decoration: underline; background: none; border: none; font-family: 'Inter', sans-serif; white-space: nowrap; }
+.ssb-change:hover { color: var(--rose-dark); }
+
+.service-chooser { }
+.service-chooser.hidden { display: none; }
+
+.form-section-label {
+  font-size: 11px; color: var(--muted); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; display: block;
+}
+
+/* ── SUCCESS CARD ── */
+.success-card {
+  background: #EAF3DE; border: 1px solid #97C459;
+  border-radius: 14px; padding: 2.5rem; text-align: center; display: none; margin-top: 1.5rem;
+}
+.success-card i { font-size: 44px; color: #3B6D11; margin-bottom: 1rem; display: block; }
+.success-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: #173404; margin-bottom: 0.75rem; }
+.success-card p { font-size: 14px; color: #3B6D11; margin-bottom: 1.25rem; line-height: 1.7; }
+.btn-outline {
+  background: transparent; color: var(--rose); border: 1.5px solid var(--rose);
+  padding: 11px 26px; border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+}
+.btn-outline:hover { background: var(--rose-light); }
+
+/* ── CONTACT ── */
+.contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 2rem; }
+.contact-card { background: #fff; border: 0.5px solid var(--border); border-radius: 14px; padding: 1.5rem; text-align: center; }
+.contact-card .c-icon { width: 52px; height: 52px; background: var(--rose-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--rose); margin: 0 auto 1rem; }
+.contact-card .c-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.contact-card .c-val { font-size: 13px; color: var(--muted); }
+.info-box { background: #fff; border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+.info-box-title { font-size: 11px; color: #888; margin-bottom: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.info-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; font-size: 13px; padding: 8px 0; border-bottom: 0.5px solid #f5eef0; color: #444; }
+.info-row:last-child { border: none; }
+
+/* ── FOOTER ── */
+footer { background: #160b10; padding: 3.5rem 2rem 2rem; color: rgba(255,255,255,0.4); font-size: 13px; }
+.footer-inner { max-width: 880px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; padding-bottom: 2.5rem; border-bottom: 0.5px solid rgba(255,255,255,0.08); margin-bottom: 1.5rem; }
+.footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #d4a97a; font-style: italic; margin-bottom: 0.75rem; font-weight: 700; }
+.footer-col-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.5); font-weight: 700; margin-bottom: 1rem; }
+.footer-link { display: block; color: rgba(255,255,255,0.4); font-size: 13px; text-decoration: none; cursor: pointer; padding: 4px 0; transition: color 0.2s; }
+.footer-link:hover { color: rgba(255,255,255,0.8); }
+.footer-bottom { max-width: 880px; margin: 0 auto; text-align: center; }
+
+/* ══════════════════
+   TABLET ≤860px
+══════════════════ */
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero h1 { font-size: 46px; }
+  .hero-content { padding: 3.5rem 2rem; }
+  .hero-stats { display: none; }
+  .section-title { font-size: 34px; }
+
+  .photo-strip { grid-template-columns: 1fr 1fr 1fr; height: 220px; }
+  .photo-strip .ph:last-child { display: none; }
+
+  .about-strip { padding: 3.5rem 1.5rem; }
+  .about-strip-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .about-imgs { display: none; }
+  .about-strip h2 { font-size: 32px; }
+
+  /* WHY GRID — 2 col: right border on every 2nd, last 2 items no bottom */
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .why-item                      { border-right: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); }
+  .why-item:nth-child(2n)        { border-right: none; }
+  .why-item:nth-child(n+5)       { border-bottom: none; }   /* last 2 of 6 */
+  /* reset desktop 3n rule */
+  .why-item:nth-child(3n)        { border-right: 0.5px solid var(--border); }
+
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  /* BUG FIX: booking-grid also 1fr 1fr on tablet */
+  .booking-grid-2col             { grid-template-columns: 1fr 1fr; }
+
+  .booking-layout { grid-template-columns: 1fr; }
+  .booking-sticky { position: static; }
+
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+
+/* ══════════════════
+   MOBILE ≤580px
+══════════════════ */
+@media (max-width: 580px) {
+  .nav { padding: 0 1rem; height: 58px; }
+  .nav-brand { font-size: 17px; }
+  .nav-brand small { display: none; }
+  .mobile-nav { top: 58px; }
+
+  .hero { min-height: 480px; }
+  .hero-content { padding: 2.5rem 1.25rem; }
+  .hero h1 { font-size: 36px; }
+  .hero-desc { font-size: 14px; margin-bottom: 1.75rem; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: 2px; }
+  .btn-gold, .btn-ghost { padding: 12px 22px; font-size: 13px; }
+  .hero-btns { gap: 10px; }
+
+  .trust-item { padding: 10px 14px; font-size: 12px; gap: 6px; }
+  .trust-item i { font-size: 16px; }
+
+  .photo-strip { grid-template-columns: 1fr 1fr; height: 180px; }
+  .photo-strip .ph:nth-child(n+3) { display: none; }
+
+  .section { padding: 2.5rem 1.25rem; }
+  .section-title { font-size: 28px; }
+  .section-sub { font-size: 14px; margin-bottom: 1.75rem; }
+
+  .about-strip { padding: 2.5rem 1.25rem; }
+  .about-strip h2 { font-size: 28px; }
+  .about-strip .highlight-text { font-size: 16px; }
+
+  /* WHY GRID — single column */
+  .why-grid { grid-template-columns: 1fr; }
+  .why-item                   { border-right: none !important; border-bottom: 0.5px solid var(--border) !important; padding: 1.75rem 1.25rem; }
+  .why-item:last-child        { border-bottom: none !important; }
+  .why-item:nth-child(n+4)   { border-bottom: 0.5px solid var(--border) !important; } /* reset tablet rule */
+  .why-num { font-size: 36px; }
+
+  /* Service cards — single column */
+  .services-grid { grid-template-columns: 1fr; gap: 12px; }
+  /* BUG FIX: booking-grid also single column on mobile */
+  .booking-grid-2col { grid-template-columns: 1fr; }
+
+  .selected-service-banner { flex-wrap: wrap; gap: 10px; }
+  .ssb-icon { width: 38px; height: 38px; font-size: 18px; }
+  .ssb-name { font-size: 13px; }
+
+  /* BUG FIX: prevent iOS auto-zoom on inputs */
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .form-group input, .form-group select, .form-group textarea { font-size: 16px; }
+
+  .addon-chip { font-size: 12px; padding: 6px 12px; }
+
+  .contact-grid { grid-template-columns: 1fr; }
+  .info-row { flex-direction: column; gap: 2px; }
+  .info-row span:last-child { color: var(--muted); }
+
+  .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+  footer { padding: 2.5rem 1.25rem 1.5rem; }
+
+  .about-page-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; }
+}
+
+@media (max-width: 380px) {
+  .hero h1 { font-size: 30px; }
+  .nav-brand { font-size: 15px; }
+  .trust-strip { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    Loft <span>Luxe</span> At Home
+    <small>Women's Home Spa · Pan India</small>
+  </div>
+  <div class="nav-links">
+    <a onclick="showPage('home')" class="active" id="nav-home"><i class="ti ti-home"></i>Home</a>
+    <a onclick="showPage('services')" id="nav-services"><i class="ti ti-sparkles"></i>Services</a>
+    <a onclick="showPage('booking')" id="nav-booking"><i class="ti ti-calendar"></i>Book Now</a>
+    <a onclick="showPage('about')" id="nav-about"><i class="ti ti-info-circle"></i>About</a>
+    <a onclick="showPage('contact')" id="nav-contact"><i class="ti ti-phone"></i>Contact</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a onclick="navGo('home')"     id="mnav-home"><i class="ti ti-home"></i>Home</a>
+  <a onclick="navGo('services')" id="mnav-services"><i class="ti ti-sparkles"></i>Services</a>
+  <a onclick="navGo('booking')"  id="mnav-booking"><i class="ti ti-calendar"></i>Book Now</a>
+  <a onclick="navGo('about')"    id="mnav-about"><i class="ti ti-info-circle"></i>About</a>
+  <a onclick="navGo('contact')"  id="mnav-contact"><i class="ti ti-phone"></i>Contact</a>
+</div>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Women's Home Spa · Pan India Service</div>
+      <h1>Your personal<br><em>sanctuary</em><br>at home.</h1>
+      <p class="hero-desc">Certified therapists arrive at your door with everything needed — premium oils, fresh towels. No travel, no waiting rooms. Just <strong style="color:#d4a97a">pure luxury, on your terms.</strong></p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="showPage('booking')"><i class="ti ti-calendar" style="margin-right:6px"></i>Book a Session</button>
+        <button class="btn-ghost" onclick="showPage('services')">Explore Services →</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">Happy Clients</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">4.9★</div><div class="hero-stat-label">Avg Rating</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">9+</div><div class="hero-stat-label">Services</div></div>
+    </div>
+  </div>
+
+  <div class="trust-strip">
+    <div class="trust-item"><i class="ti ti-shield-check"></i>Verified Therapists</div>
+    <div class="trust-item"><i class="ti ti-clock"></i>On-Time Arrival</div>
+    <div class="trust-item"><i class="ti ti-india"></i>Pan India</div>
+    <div class="trust-item"><i class="ti ti-home-heart"></i>All Equipment</div>
+    <div class="trust-item"><i class="ti ti-lock"></i>Safe &amp; Private</div>
+  </div>
+
+  <div class="photo-strip">
+    <div class="ph"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&auto=format&fit=crop&q=80" alt="Spa massage"></div>
+    <div class="ph"><img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=400&auto=format&fit=crop&q=80" alt="Spa environment"></div>
+    <div class="ph"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&auto=format&fit=crop&q=80" alt="Spa oils"></div>
+    <div class="ph"><img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=400&auto=format&fit=crop&q=80" alt="Professional massage"></div>
+  </div>
+
+  <div class="about-strip">
+    <div class="about-strip-inner">
+      <div>
+        <span class="tag">Who We Are</span>
+        <h2>Luxury spa.<br>Delivered <em>to your door</em>.</h2>
+        <p>Loft Luxe At Home brings a 5-star spa experience directly to women across India. Our certified, professionally trained male therapists carry international-standard techniques and come equipped with everything needed.</p>
+        <div class="highlight-text">"We don't just offer a service — we create a ritual of relaxation, designed entirely around your comfort."</div>
+        <div class="badges">
+          <div class="about-badge"><i class="ti ti-user-check"></i>Certified male therapists, background-verified</div>
+          <div class="about-badge"><i class="ti ti-home"></i>We bring the full setup — table, oils, towels</div>
+          <div class="about-badge"><i class="ti ti-map-pin"></i>Available across India — book from any city</div>
+          <div class="about-badge"><i class="ti ti-clock"></i>Flexible slots: morning, afternoon, or evening</div>
+        </div>
+      </div>
+      <div class="about-imgs">
+        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&auto=format&fit=crop&q=80" alt="Spa therapy">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&auto=format&fit=crop&q=80" alt="Spa oils">
+        <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=400&auto=format&fit=crop&q=80" alt="Relaxation">
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:880px;margin:3.5rem auto 0;border:0.5px solid var(--border);border-radius:16px;overflow:hidden">
+    <div style="padding:2rem 1.75rem;border-bottom:0.5px solid var(--border)">
+      <div class="section-eyebrow">Why Choose Us</div>
+      <div class="section-title" style="font-size:32px">The <em>Loft Luxe</em> difference</div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-num">01</div><div class="why-title">Complete Setup, Delivered</div><div class="why-desc">Professional massage table, premium oils, fresh towels — our therapist brings everything. You need only to relax.</div></div>
+      <div class="why-item"><div class="why-num">02</div><div class="why-title">Certified Male Therapists</div><div class="why-desc">Every therapist is trained, certified, and personally background-verified for your complete peace of mind.</div></div>
+      <div class="why-item"><div class="why-num">03</div><div class="why-title">Pan India Reach</div><div class="why-desc">Available across India. Book from any city — Ahmedabad, Vadodara, Surat, Pune, Mumbai, Rajasthan &amp; more.</div></div>
+      <div class="why-item"><div class="why-num">04</div><div class="why-title">Flexible Scheduling</div><div class="why-desc">Book morning, afternoon, or evening slots. Same-day bookings available in most cities.</div></div>
+      <div class="why-item"><div class="why-num">05</div><div class="why-title">9 Premium Services</div><div class="why-desc">From Swedish massage to in-home bathtub experiences — a full menu customized to your body's needs.</div></div>
+      <div class="why-item"><div class="why-num">06</div><div class="why-title">Confirmed in 30 Minutes</div><div class="why-desc">Book online and receive a confirmation call within 30 minutes. No uncertainty, no waiting.</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">Our Services</div>
+    <div class="section-title">Choose your <em>experience</em></div>
+    <p class="section-sub">Tap any service to book instantly. All performed at your home by certified therapists.</p>
+    <div class="services-grid" id="home-services"></div>
+    <div style="text-align:center;margin-top:0.25rem">
+      <button class="btn-outline" onclick="showPage('services')">View All Services →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div id="page-services" class="page">
+  <div class="section">
+    <div class="section-eyebrow">Full Menu</div>
+    <div class="section-title">All Services &amp; <em>Pricing</em></div>
+    <p class="section-sub">Every service performed at your home. We bring the full professional setup.</p>
+    <div class="services-grid" id="services-page-grid"></div>
+    <div style="background:var(--gold-light);border:0.5px solid #e0c890;border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:2rem">
+      <p style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:6px"><i class="ti ti-plus" style="margin-right:5px"></i>Add-ons available with any service</p>
+      <p style="font-size:13px;color:#7a6030;line-height:1.8">Aromatherapy (+₹200) &nbsp;·&nbsp; Hot Stone Therapy (+₹300) &nbsp;·&nbsp; Herbal Compress (+₹350) &nbsp;·&nbsp; +30 min (+₹499)</p>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING -->
+<div id="page-booking" class="page">
+  <div class="section">
+    <div class="section-eyebrow">Reservations</div>
+    <div class="section-title">Book Your <em>Session</em></div>
+    <p class="section-sub">Confirm in 30 minutes. Therapist calls before arrival.</p>
+
+    <div class="booking-layout">
+      <div>
+        <!-- Selected service banner -->
+        <div class="selected-service-banner" id="ssb">
+          <div class="ssb-icon" id="ssb-icon"><i class="ti ti-sparkles"></i></div>
+          <div class="ssb-info">
+            <div class="ssb-name" id="ssb-name">—</div>
+            <div class="ssb-meta" id="ssb-meta">—</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+            <div class="ssb-price" id="ssb-price">₹0</div>
+            <button class="ssb-change" onclick="showServiceChooser()">Change</button>
+          </div>
+        </div>
+
+        <!-- Service chooser — BUG FIX: no inline style, use class for columns -->
+        <div class="service-chooser" id="service-chooser">
+          <span class="form-section-label">Select a service</span>
+          <div class="services-grid booking-grid-2col" id="booking-grid"></div>
+        </div>
+
+        <!-- Add-ons -->
+        <span class="form-section-label">Add-ons <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#aaa">(optional)</span></span>
+        <div class="addons">
+          <span class="addon-chip" onclick="toggleAddon(this,'Aromatherapy',200)"><i class="ti ti-droplet"></i>Aromatherapy +₹200</span>
+          <span class="addon-chip" onclick="toggleAddon(this,'Hot Stones',300)"><i class="ti ti-circles"></i>Hot Stones +₹300</span>
+          <span class="addon-chip" onclick="toggleAddon(this,'Herbal Compress',350)"><i class="ti ti-leaf"></i>Herbal Compress +₹350</span>
+          <span class="addon-chip" onclick="toggleAddon(this,'Extra 30 min',499)"><i class="ti ti-clock-plus"></i>+30 min ₹499</span>
+        </div>
+
+        <hr style="border:none;border-top:0.5px solid var(--border);margin:1.5rem 0">
+        <div id="booking-form-anchor"></div>
+        <span class="form-section-label">Your details</span>
+
+        <div class="form-row">
+          <div class="form-group"><label>Your name *</label><input type="text" id="fname" placeholder="e.g. Priya Sharma" autocomplete="name"></div>
+          <div class="form-group"><label>Phone number *</label><input type="tel" id="fphone" placeholder="+91 98765 43210" autocomplete="tel"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>City *</label><input type="text" id="fcity" placeholder="e.g. Mumbai, Delhi, Pune…" autocomplete="address-level2"></div>
+          <div class="form-group"><label>Pincode *</label><input type="text" id="fpincode" placeholder="400001" inputmode="numeric" autocomplete="postal-code"></div>
+        </div>
+        <div class="form-group"><label>Full address *</label><input type="text" id="faddress" placeholder="Flat no., building name, area, city" autocomplete="street-address"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Preferred date *</label><input type="date" id="fdate"></div>
+          <div class="form-group">
+            <label>Preferred time *</label>
+            <select id="ftime">
+              <option value="">Select slot</option>
+              <option>9:00 AM – 10:00 AM</option>
+              <option>10:00 AM – 11:00 AM</option>
+              <option>11:00 AM – 12:00 PM</option>
+              <option>12:00 PM – 1:00 PM</option>
+              <option>2:00 PM – 3:00 PM</option>
+              <option>3:00 PM – 4:00 PM</option>
+              <option>4:00 PM – 5:00 PM</option>
+              <option>5:00 PM – 6:00 PM</option>
+              <option>6:00 PM – 7:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Special instructions (optional)</label><textarea id="fnotes" placeholder="Allergies, pressure preferences, areas to focus on, access notes…"></textarea></div>
+
+        <!-- BUG FIX: mobile confirm btn — shown via CSS not JS innerWidth check -->
+        <button class="confirm-btn mobile-only-btn" onclick="submitBooking()" id="mobile-confirm-btn">Confirm Booking →</button>
+      </div>
+
+      <!-- RIGHT sticky summary -->
+      <div class="booking-sticky">
+        <div class="summary-box">
+          <div class="summary-title">Booking Summary</div>
+          <div id="no-service-msg" style="font-size:13px;color:var(--muted);text-align:center;padding:1.5rem 0">
+            <i class="ti ti-hand-click" style="font-size:28px;display:block;margin-bottom:.5rem;color:var(--border)"></i>
+            Select a service above
+          </div>
+          <div id="summary-content" style="display:none">
+            <div class="summary-row"><span>Service</span><span id="s-service" style="font-weight:600;color:var(--text);max-width:160px;text-align:right">—</span></div>
+            <div class="summary-row"><span>Duration</span><span id="s-duration">—</span></div>
+            <div class="summary-row"><span>Add-ons</span><span id="s-addons" style="max-width:160px;text-align:right">None</span></div>
+            <div class="summary-row"><span>Date</span><span id="s-date">—</span></div>
+            <div class="summary-row"><span>Time</span><span id="s-time">—</span></div>
+            <div class="summary-total"><span>Total</span><span id="s-total">₹0</span></div>
+          </div>
+          <button class="confirm-btn" onclick="submitBooking()">Confirm Booking →</button>
+        </div>
+        <div style="background:var(--rose-light);border:0.5px solid #f0cdd8;border-radius:12px;padding:1.25rem;margin-top:1rem">
+          <p style="font-size:13px;font-weight:700;color:var(--rose-dark);margin-bottom:5px"><i class="ti ti-shield-check" style="margin-right:5px"></i>Safe &amp; Verified</p>
+          <p style="font-size:12px;color:var(--rose-dark);line-height:1.7;opacity:0.8">All therapists are background-verified. Confirmation call before arrival. 100% privacy guaranteed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="success-card" id="success-card">
+      <i class="ti ti-circle-check"></i>
+      <h3>Booking Confirmed! 🎉</h3>
+      <p id="success-msg">We'll call you shortly to confirm the therapist details.</p>
+      <button class="btn-outline" onclick="resetBooking()">Book Another Session</button>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <div class="hero" style="min-height:300px">
+    <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1600&auto=format&fit=crop&q=80')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Our Story</div>
+      <h1 style="font-size:48px">About<br><em>Loft Luxe</em></h1>
+    </div>
+  </div>
+  <div class="section">
+    <div class="about-page-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start">
+      <div>
+        <div class="section-eyebrow">Our Mission</div>
+        <div class="section-title" style="font-size:28px;margin-bottom:1.25rem">Redefining spa for <em>Indian women</em></div>
+        <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:1rem">Loft Luxe At Home was founded with one belief — every woman deserves a world-class spa experience on her own terms, in her own space.</p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:1rem">Our certified, professionally trained <strong>male therapists</strong> are personally vetted, background-checked, and trained in international massage techniques — from Swedish and deep tissue to Ayurvedic therapies.</p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:1.5rem">Every session is customized around your needs, your schedule, and your comfort level.</p>
+        <div style="background:var(--gold-light);border-left:3px solid var(--gold);padding:1.25rem 1.5rem;border-radius:0 10px 10px 0;font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--rose-dark);line-height:1.6">
+          "We bring the spa to you — table, oils, towels, and a therapist who treats your comfort as the only priority."
+        </div>
+      </div>
+      <div>
+        <div class="stats-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem">
+          <div style="background:var(--rose-light);border-radius:14px;padding:1.5rem;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--rose)">500+</div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px">Happy Clients</div></div>
+          <div style="background:var(--gold-light);border-radius:14px;padding:1.5rem;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold)">9+</div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px">Services</div></div>
+          <div style="background:#fff;border:0.5px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--rose)">4.9★</div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px">Avg Rating</div></div>
+          <div style="background:#fff;border:0.5px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center"><div style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--rose)">30m</div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px">Confirm Time</div></div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&auto=format&fit=crop&q=80" alt="Professional spa" style="width:100%;border-radius:14px;object-fit:cover;height:200px">
+      </div>
+    </div>
+    <div style="margin-top:2.5rem;text-align:center">
+      <button class="btn-gold" onclick="showPage('booking')" style="padding:14px 36px;font-size:15px">Book Your Session Today →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="page-contact" class="page">
+  <div class="section">
+    <div class="section-eyebrow">Reach Us</div>
+    <div class="section-title">Get in <em>Touch</em></div>
+    <p class="section-sub">Available across India. Call, WhatsApp, or email — we respond within 30 minutes.</p>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="c-icon"><i class="ti ti-brand-whatsapp"></i></div><div class="c-title">WhatsApp / Call</div><div class="c-val">+91 98765 43210</div></div>
+      <div class="contact-card"><div class="c-icon"><i class="ti ti-mail"></i></div><div class="c-title">Email Us</div><div class="c-val">hello@loftluxe.in</div></div>
+      <div class="contact-card"><div class="c-icon"><i class="ti ti-india"></i></div><div class="c-title">Service Area</div><div class="c-val">Pan India · All major cities</div></div>
+    </div>
+    <div class="info-box">
+      <div class="info-box-title">Working Hours</div>
+      <div class="info-row"><span>Monday – Saturday</span><span>9:00 AM – 7:00 PM</span></div>
+      <div class="info-row"><span>Sunday</span><span>10:00 AM – 4:00 PM</span></div>
+      <div class="info-row"><span>Confirmation time</span><span>Within 30 minutes</span></div>
+    </div>
+    <div class="info-box">
+      <div class="info-box-title">Cities We Serve</div>
+      <div class="info-row"><span>Gujarat</span><span>Ahmedabad, Surat, Vadodara, Rajkot</span></div>
+      <div class="info-row"><span>North India</span><span>Delhi NCR, Jaipur, Lucknow, Agra</span></div>
+      <div class="info-row"><span>South India</span><span>Bangalore, Hyderabad, Chennai, Kochi</span></div>
+      <div class="info-row"><span>Maharashtra</span><span>Mumbai, Pune, Nagpur, Nashik, Aurangabad</span></div>
+      <div class="info-row"><span>Other cities</span><span>Available on request</span></div>
+    </div>
+    <div class="info-box">
+      <div class="info-box-title">Follow Us</div>
+      <div class="info-row"><span><i class="ti ti-brand-instagram" style="color:var(--rose);margin-right:7px;vertical-align:-1px"></i>Instagram</span><span>@loftluxeathome</span></div>
+      <div class="info-row"><span><i class="ti ti-brand-facebook" style="color:var(--rose);margin-right:7px;vertical-align:-1px"></i>Facebook</span><span>Loft Luxe At Home</span></div>
+      <div class="info-row"><span><i class="ti ti-brand-whatsapp" style="color:var(--rose);margin-right:7px;vertical-align:-1px"></i>WhatsApp</span><span>+91 98765 43210</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Loft Luxe At Home</div>
+      <p style="font-size:13px;line-height:1.8;max-width:280px">Premium women's home spa service available across India. Certified therapists, luxury experience, at your doorstep.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <a class="footer-link" onclick="showPage('home')">Home</a>
+      <a class="footer-link" onclick="showPage('services')">Services</a>
+      <a class="footer-link" onclick="showPage('booking')">Book Now</a>
+      <a class="footer-link" onclick="showPage('about')">About Us</a>
+      <a class="footer-link" onclick="showPage('contact')">Contact</a>
+    </div>
+    <div>
+      <div class="footer-col-title">Popular Services</div>
+      <a class="footer-link" onclick="bookService('Swedish Massage')">Swedish Massage</a>
+      <a class="footer-link" onclick="bookService('Aroma Oil Massage')">Aroma Oil Massage</a>
+      <a class="footer-link" onclick="bookService('Deep Tissue Massage')">Deep Tissue</a>
+      <a class="footer-link" onclick="bookService('Full Body + Scrub')">Full Body + Scrub</a>
+      <a class="footer-link" onclick="bookService('Bathtub Massage')">Bathtub Massage</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Loft Luxe At Home · Pan India Women's Home Spa · All rights reserved</p>
+    <p style="margin-top:4px">Made with ♥ for women who deserve to relax</p>
+  </div>
+</footer>
+
+<style>
+/* BUG FIX: mobile confirm button — pure CSS, no JS width check needed */
+.mobile-only-btn { display: none; margin-top: 1rem; }
+@media (max-width: 860px) {
+  .mobile-only-btn { display: block; }
+}
+</style>
+
+<script>
+const SERVICES = [
+  { id:'swedish',   icon:'ti-massage',   name:'Swedish Massage',      price:1499, dur:'60 min', desc:'A classic full-body massage with long, gliding strokes, kneading, and rhythmic tapping to ease muscle tension and leave you deeply relaxed.' },
+  { id:'dry',       icon:'ti-wind',      name:'Dry Massage',           price:1299, dur:'60 min', desc:'Oil-free massage using deep compression and firm strokes to invigorate muscles, improve flexibility, and relieve knots — ideal for those sensitive to oils.' },
+  { id:'aroma',     icon:'ti-droplet',   name:'Aroma Oil Massage',     price:1799, dur:'75 min', desc:'Therapeutic full-body massage with premium essential oils — lavender, rose, or eucalyptus. Soothes the mind and softens the skin.' },
+  { id:'bathtub',   icon:'ti-bath',      name:'Bathtub Massage',       price:2999, dur:'90 min', featured:true, badge:'⭐ Most Popular', desc:'Our signature experience — in-home bathtub ritual with aromatherapy salts, rose petals, and essential oils, followed by a full relaxation massage.' },
+  { id:'deep',      icon:'ti-flame',     name:'Deep Tissue Massage',   price:1799, dur:'60 min', desc:'Firm, targeted pressure on deep muscle layers to break down knots, relieve chronic pain, and address tension from sports, posture, or stress.' },
+  { id:'hair',      icon:'ti-hair',      name:'Hair Oil Massage',      price:799,  dur:'45 min', desc:'Nourishing warm oil scalp massage that stimulates hair follicles, reduces hair fall, eases headaches, and provides deeply calming tension relief.' },
+  { id:'foot',      icon:'ti-walk',      name:'Foot Massage',          price:899,  dur:'55 min', desc:'Reflexology-inspired foot massage targeting pressure points connected to every organ system — relieves whole-body stress and revives tired feet.' },
+  { id:'head-hand', icon:'ti-hand',      name:'Head & Hand Massage',   price:899,  dur:'55 min', desc:'Cranial massage combined with detailed hand therapy — perfect for desk workers, screen fatigue, tension headaches, and stiff fingers or wrists.' },
+  { id:'scrub',     icon:'ti-sparkles',  name:'Full Body + Scrub',     price:2499, dur:'90 min', desc:'Complete body massage followed by a full exfoliating scrub to remove dead skin cells, deeply hydrate, and leave your skin silky smooth and glowing.' }
+];
+
+let selectedService = null, selectedPrice = 0, selectedDur = '';
+let activeAddons = {}, addonTotal = 0;
+
+/* ── MENU ── */
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  const nav = document.getElementById('mobile-nav');
+  const btn = document.getElementById('hamburger');
+  if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) closeMenu();
+});
+
+/* ── NAVIGATION ── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const el = document.getElementById('nav-' + id);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.mobile-nav a').forEach(a => a.classList.remove('active'));
+  const mel = document.getElementById('mnav-' + id);
+  if (mel) mel.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function navGo(id) { closeMenu(); showPage(id); }
+
+/* ── RENDER CARDS ── */
+function renderCards(containerId, clickable, showDesc) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  SERVICES.forEach(s => {
+    const isFeatured = s.featured || false;
+    const div = document.createElement('div');
+    div.className = 'srv-card' + (isFeatured ? ' featured' : '');
+    div.dataset.id = s.id;
+    const descText = showDesc ? s.desc : (s.desc.length > 80 ? s.desc.slice(0, 80) + '…' : s.desc);
+    const bookFn   = clickable
+      ? `selectService(this.closest('.srv-card'),'${s.name}',${s.price},'${s.dur}')`
+      : `bookService('${s.name}')`;
+    div.innerHTML = `
+      ${s.badge ? `<div class="srv-badge">${s.badge}</div>` : ''}
+      <div class="srv-card-top"><div class="srv-icon"><i class="ti ${s.icon}"></i></div></div>
+      <div class="srv-name">${s.name}</div>
+      <div class="srv-desc">${descText}</div>
+      <div class="srv-footer">
+        <div><div class="srv-price">₹${s.price.toLocaleString('en-IN')}</div><div class="srv-dur">${s.dur}</div></div>
+        <button class="srv-book-btn" onclick="event.stopPropagation();${bookFn}">Book <i class="ti ti-arrow-right"></i></button>
+      </div>`;
+    if (clickable) div.onclick = () => selectService(div, s.name, s.price, s.dur);
+    container.appendChild(div);
+  });
+}
+
+/* ── BOOK FROM OUTSIDE ── */
+function bookService(name) {
+  const s = SERVICES.find(x => x.name === name);
+  if (!s) return;
+  showPage('booking');
+  setTimeout(() => {
+    document.querySelectorAll('#booking-grid .srv-card').forEach(c => c.classList.remove('selected'));
+    const card = document.querySelector(`#booking-grid [data-id="${s.id}"]`);
+    if (card) card.classList.add('selected');
+    selectedService = s.name; selectedPrice = s.price; selectedDur = s.dur;
+    showServiceBanner(s);
+    updateSummary();
+    setTimeout(() => document.getElementById('booking-form-anchor').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+  }, 80);
+}
+
+/* ── SELECT ON BOOKING PAGE ── */
+function selectService(el, name, price, dur) {
+  document.querySelectorAll('#booking-grid .srv-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedService = name; selectedPrice = price; selectedDur = dur;
+  const s = SERVICES.find(x => x.name === name);
+  if (s) showServiceBanner(s);
+  updateSummary();
+}
+
+/* ── BANNER ── */
+function showServiceBanner(s) {
+  document.getElementById('ssb-icon').innerHTML = `<i class="ti ${s.icon}"></i>`;
+  document.getElementById('ssb-name').textContent  = s.name;
+  document.getElementById('ssb-meta').textContent  = s.dur + ' · Home service';
+  document.getElementById('ssb-price').textContent = '₹' + s.price.toLocaleString('en-IN');
+  document.getElementById('ssb').classList.add('visible');
+  document.getElementById('service-chooser').classList.add('hidden');
+}
+function showServiceChooser() {
+  document.getElementById('ssb').classList.remove('visible');
+  document.getElementById('service-chooser').classList.remove('hidden');
+  document.getElementById('service-chooser').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ── ADD-ONS ── */
+function toggleAddon(el, name, price) {
+  if (el.classList.contains('active')) {
+    el.classList.remove('active'); delete activeAddons[name]; addonTotal -= price;
+  } else {
+    el.classList.add('active'); activeAddons[name] = price; addonTotal += price;
+  }
+  updateSummary();
+}
+
+/* ── SUMMARY ── */
+function updateSummary() {
+  const has = !!selectedService;
+  document.getElementById('no-service-msg').style.display  = has ? 'none'  : 'block';
+  document.getElementById('summary-content').style.display = has ? 'block' : 'none';
+  if (!has) return;
+  document.getElementById('s-service').textContent  = selectedService;
+  document.getElementById('s-duration').textContent = selectedDur || '—';
+  const names = Object.keys(activeAddons);
+  document.getElementById('s-addons').textContent = names.length ? names.join(', ') + ' (+₹' + addonTotal.toLocaleString('en-IN') + ')' : 'None';
+  document.getElementById('s-date').textContent  = document.getElementById('fdate').value  || '—';
+  document.getElementById('s-time').textContent  = document.getElementById('ftime').value  || '—';
+  document.getElementById('s-total').textContent = '₹' + (selectedPrice + addonTotal).toLocaleString('en-IN');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('fdate').addEventListener('change', updateSummary);
+  document.getElementById('ftime').addEventListener('change', updateSummary);
+});
+
+/* ── SUBMIT ── */
+function submitBooking() {
+  const name    = document.getElementById('fname').value.trim();
+  const phone   = document.getElementById('fphone').value.trim();
+  const city    = document.getElementById('fcity').value.trim();
+  const pincode = document.getElementById('fpincode').value.trim();
+  const address = document.getElementById('faddress').value.trim();
+  const date    = document.getElementById('fdate').value;
+  const time    = document.getElementById('ftime').value;
+  const notes   = document.getElementById('fnotes').value.trim();
+  if (!selectedService) { alert('Please select a service first.'); return; }
+  if (!name || !phone || !city || !address || !date || !time) { alert('Please fill in all required fields.'); return; }
+  try {
+    const existing = JSON.parse(localStorage.getItem('loftluxe_bookings') || '[]');
+    const newId = existing.length > 0 ? Math.max(...existing.map(b => b.id)) + 1 : 1;
+    const now = new Date();
+    existing.push({
+      id: newId, name, phone, city, pincode, address,
+      service: selectedService,
+      addons: Object.keys(activeAddons).length ? Object.keys(activeAddons).join(', ') : 'None',
+      date, time, amount: selectedPrice + addonTotal, notes, status: 'New',
+      bookedAt: now.toLocaleDateString('en-IN') + ' ' + now.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' })
+    });
+    localStorage.setItem('loftluxe_bookings', JSON.stringify(existing));
+  } catch(e) { console.warn('Storage error:', e); }
+
+  document.getElementById('success-msg').textContent =
+    name + ', your ' + selectedService + ' is booked for ' + date + ' at ' + time +
+    ' in ' + city + '. Our certified therapist will call you within 30 minutes to confirm!';
+  document.getElementById('success-card').style.display = 'block';
+  document.getElementById('success-card').scrollIntoView({ behavior:'smooth' });
+}
+
+/* ── RESET ── */
+function resetBooking() {
+  document.querySelectorAll('#booking-grid .srv-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.addon-chip').forEach(c => c.classList.remove('active'));
+  selectedService = null; selectedPrice = 0; selectedDur = '';
+  activeAddons = {}; addonTotal = 0;
+  ['fname','fphone','fcity','fpincode','faddress','fdate','fnotes'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+  document.getElementById('ftime').value = '';
+  document.getElementById('summary-content').style.display = 'none';
+  document.getElementById('no-service-msg').style.display  = 'block';
+  document.getElementById('success-card').style.display    = 'none';
+  document.getElementById('ssb').classList.remove('visible');
+  document.getElementById('service-chooser').classList.remove('hidden');
+  updateSummary();
+}
+
+/* ── INIT ── */
+renderCards('home-services',      false, false);
+renderCards('services-page-grid', false, true);
+renderCards('booking-grid',       true,  false);
+</script>
+</body>
+</html>
